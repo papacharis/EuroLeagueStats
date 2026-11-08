@@ -1,0 +1,45 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: pir
+      POSTGRES_PASSWORD: pir
+      POSTGRES_DB: pir
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pir"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://pir:pir@db:5432/pir
+    depends_on:
+      db: { condition: service_healthy }
+    ports: ["8000:8000"]
+
+  # Schedule sync + live polling + one-off historical backfill.
+  worker:
+    build: ./backend
+    command: ["python", "-m", "app.cli", "worker"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://pir:pir@db:5432/pir
+      EL_BACKFILL: "1"              # import every season with play-by-play (2007-08 onwards)
+      EL_BACKFILL_FROM_YEAR: "2007"
+      EL_LIVE_POLL_INTERVAL: "10"
+    depends_on:
+      db: { condition: service_healthy }
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        BACKEND_URL: http://api:8000
+    depends_on: [api]
+    ports: ["3000:3000"]
+
+volumes:
+  pgdata:
