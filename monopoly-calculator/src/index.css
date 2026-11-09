@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #15181c;
+  --panel: #23272e;
+  --text: #ece8dc;
+  --body-1: #2b2f35;
+  --body-2: #17191d;
+  --lcd-1: #a9b996;
+  --lcd-2: #8fa27c;
+  --ink: #17210f;
+  --ghost: rgba(23, 33, 15, 0.08);
+  --red: #c8102e;
+  color-scheme: dark;
+}
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at top, #262b33, var(--bg) 70%);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+.app-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* ───────── toolbar ───────── */
+.toolbar {
+  display: flex;
+  justify-content: center;
+  gap: .25rem;
+  padding: .4rem .5rem;
+  flex-wrap: wrap;
+}
+.tool-btn {
+  display: inline-flex; align-items: center; gap: .35rem;
+  min-height: 2.25rem; min-width: 2.25rem; padding: 0 .6rem;
+  border-radius: .6rem; background: rgba(255,255,255,.06); color: var(--text);
+  font-size: 1rem; line-height: 1; justify-content: center;
+}
+.tool-btn:hover:not(:disabled) { background: rgba(255,255,255,.12); }
+.tool-btn:disabled { opacity: .35; }
+.tool-label { font-size: .75rem; }
+@media (max-width: 480px) { .tool-label { display: none; } }
+
+/* ───────── generic UI ───────── */
+.panel { background: var(--panel); color: var(--text); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .55rem .9rem; border-radius: .6rem; min-height: 2.5rem;
+  background: rgba(255,255,255,.08); color: var(--text); font-weight: 600;
+}
+.btn:hover:not(:disabled) { background: rgba(255,255,255,.15); }
+.btn:disabled { opacity: .4; }
+.btn-primary { background: #2f8f4e; }
+.btn-primary:hover:not(:disabled) { background: #36a35a; }
+.btn-danger { background: var(--red); }
+.btn-danger:hover:not(:disabled) { background: #de1d3c; }
+.btn-sm { padding: .2rem .5rem; min-height: 1.8rem; font-size: .75rem; }
+.input {
+  background: rgba(0,0,0,.3); border: 1px solid rgba(255,255,255,.15); color: var(--text);
+  border-radius: .5rem; padding: .45rem .6rem; min-height: 2.4rem;
+}
+.input-sm { padding: .2rem .4rem; min-height: 1.8rem; font-size: .75rem; }
+.kbd {
+  display: inline-block; padding: .05rem .4rem; border-radius: .3rem; font-size: .75rem; font-weight: 700;
+  background: #e8e3d3; color: #222; box-shadow: inset 0 -2px 0 rgba(0,0,0,.25);
+}
+.pawn {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 1.9rem; height: 1.5rem;
+  border-radius: .4rem; font-size: .75rem; font-weight: 800; color: #111;
+}
+.pawn-1 { background: #e84a3c; } .pawn-2 { background: #3a86e8; } .pawn-3 { background: #3fb35a; }
+.pawn-4 { background: #f2c230; } .pawn-5 { background: #b05ee0; } .pawn-6 { background: #f08a24; }
+
+/* ───────── device ───────── */
+.device-wrap {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  padding: .25rem .5rem 1rem;
+}
+.device {
+  --key-gap: clamp(.35rem, 1.8vw, .6rem);
+  width: min(100%, 30rem);
+  background: linear-gradient(160deg, var(--body-1), var(--body-2));
+  border-radius: 1.6rem 1.6rem 2.2rem 2.2rem;
+  padding: clamp(.75rem, 3.5vw, 1.25rem);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.12),
+    inset 0 -6px 12px rgba(0,0,0,.5),
+    0 1px 0 #000,
+    0 25px 50px rgba(0,0,0,.55);
+  border: 1px solid #0b0c0e;
+  user-select: none; -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.device-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .6rem; }
+.device-brand {
+  display: inline-flex; flex-direction: column; line-height: 1;
+  background: var(--red); color: #fff; padding: .3rem .7rem .35rem; border-radius: .35rem;
+  box-shadow: inset 0 0 0 2px #fff, 0 2px 4px rgba(0,0,0,.4);
+}
+.brand-mono { font-weight: 900; letter-spacing: .08em; font-size: 1rem; }
+.brand-sub { font-weight: 700; letter-spacing: .18em; font-size: .55rem; margin-top: .15rem; }
+.sim-badge { font-size: .6rem; font-weight: 800; letter-spacing: .1em; color: #f2c230; border: 1px solid #f2c230; padding: .15rem .4rem; border-radius: .3rem; }
+
+.device-screen-area {
+  background: #0e0f11; border-radius: .9rem; padding: .55rem;
+  box-shadow: inset 0 3px 8px rgba(0,0,0,.8), 0 1px 0 rgba(255,255,255,.08);
+  margin-bottom: .9rem;
+}
+
+/* ───────── LCD ───────── */
+.lcd {
+  position: relative;
+  background: linear-gradient(175deg, var(--lcd-1), var(--lcd-2));
+  border-radius: .45rem;
+  padding: .45rem .5rem .5rem;
+  color: var(--ink);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.25);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+.lcd::after { /* subtle glass reflection */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(160deg, rgba(255,255,255,.18), rgba(255,255,255,0) 40%);
+}
+.lcd-text {
+  font-size: clamp(.62rem, 2.7vw, .8rem); font-weight: 700; letter-spacing: .04em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  border-bottom: 1px solid rgba(23,33,15,.18); padding-bottom: .2rem; margin-bottom: .3rem;
+  min-height: 1.2em;
+}
+.lcd-error .lcd-text { animation: blink 0.5s steps(1) 3; }
+.lcd-row { display: flex; align-items: flex-end; gap: .35rem; }
+.lcd-row-main { justify-content: space-between; }
+.lcd-row-players { margin-top: .35rem; justify-content: space-between; border-top: 1px solid rgba(23,33,15,.18); padding-top: .3rem; }
+.lcd-cell { display: flex; flex-direction: column; align-items: center; gap: .1rem; }
+.lcd-amount { align-items: flex-end; margin-left: auto; }
+.lcd-amount-labels { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0 .3rem; max-width: 11rem; }
+.lcd-ann { font-size: clamp(.45rem, 1.9vw, .58rem); font-weight: 800; letter-spacing: .03em; opacity: .1; line-height: 1.15; }
+.lcd-ann-on { opacity: .92; }
+.lcd-player { display: flex; flex-direction: column; align-items: center; gap: .05rem; }
+.lcd-player-out { opacity: .35; }
+.lcd-arrow { font-size: .55rem; }
+.lcd-flags { display: flex; flex-direction: column; align-items: flex-end; gap: .1rem; }
+.lcd-off { filter: grayscale(1) brightness(.7); }
+
+.seg-field { display: inline-flex; gap: 1px; }
+.seg-digit { width: clamp(.85rem, 4.2vw, 1.15rem); height: auto; }
+.lcd-big .seg-digit { width: clamp(1.25rem, 6.4vw, 1.75rem); }
+.lcd-player .seg-digit { width: clamp(.9rem, 4.6vw, 1.2rem); }
+.seg-on { fill: var(--ink); }
+.seg-off { fill: var(--ghost); }
+.seg-blink .seg-on { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: .15; } }
+
+.company-strip {
+  display: flex; align-items: center; gap: .45rem; margin-top: .45rem;
+  font-size: .75rem; color: #cfc9b8; min-height: 1.4rem; padding: 0 .15rem;
+}
+.company-swatch { width: .9rem; height: .9rem; border-radius: .2rem; flex: none; box-shadow: 0 0 0 1px rgba(255,255,255,.25); }
+
+/* ───────── keys ───────── */
+.keypad { display: flex; flex-direction: column; gap: var(--key-gap); }
+.keypad-players { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--key-gap); }
+.keypad-main { display: grid; grid-template-columns: repeat(3, 1fr) 1.35fr; gap: var(--key-gap); }
+.keypad-bottom { display: grid; grid-template-columns: 1fr 1.6fr 1.6fr 1fr; gap: var(--key-gap); }
+
+.calc-key {
+  --cap: #e8e3d3; --cap-dark: #b9b2a0; --ink-key: #1d1d1d;
+  position: relative; border: 0; padding: 0 0 5px; background: transparent; cursor: pointer;
+  border-radius: .7rem; min-height: clamp(2.9rem, 12vw, 3.6rem);
+  touch-action: manipulation; outline: none;
+}
+.calc-key::before { /* key well / skirt */
+  content: ""; position: absolute; inset: 5px 0 0 0; border-radius: inherit;
+  background: var(--cap-dark); box-shadow: 0 3px 4px rgba(0,0,0,.6);
+}
+.calc-key-cap {
+  position: relative; display: flex; height: 100%; min-height: inherit; align-items: center; justify-content: center;
+  border-radius: inherit; background: linear-gradient(180deg, color-mix(in srgb, var(--cap) 100%, #fff 18%), var(--cap));
+  color: var(--ink-key); transform: translateY(0); transition: transform 55ms ease-out, filter 55ms;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 3px rgba(0,0,0,.15);
+}
+.calc-key.is-down .calc-key-cap { transform: translateY(4px); filter: brightness(.92); }
+.calc-key:focus-visible .calc-key-cap { box-shadow: 0 0 0 3px #f2c230; }
+.calc-key:disabled { opacity: .3; cursor: default; }
+.calc-key-label { font-weight: 800; font-size: clamp(1.15rem, 5.2vw, 1.45rem); line-height: 1; }
+.calc-key-op .calc-key-label, .calc-key-nav .calc-key-label { font-size: clamp(.6rem, 2.7vw, .78rem); letter-spacing: .02em; }
+.calc-key-nav .calc-key-label { font-size: clamp(1rem, 4.4vw, 1.2rem); }
+
+.calc-key-op { --cap: #3a3f47; --cap-dark: #1e2126; --ink-key: #fff; }
+.calc-key-op.BUY { --cap: #2f8f4e; --cap-dark: #1b5a30; }
+.calc-key-op.SELL { --cap: #c8102e; --cap-dark: #7a0a1c; }
+.calc-key-op.RENT { --cap: #f08a24; --cap-dark: #9a5310; --ink-key: #1d1d1d; }
+.calc-key-op.GO { --cap: #f2d22e; --cap-dark: #9c8614; --ink-key: #1d1d1d; }
+.calc-key-enter { --cap: #24408e; --cap-dark: #142553; --ink-key: #fff; }
+.calc-key-clear { --cap: #c8102e; --cap-dark: #7a0a1c; --ink-key: #fff; }
+.calc-key-nav { --cap: #5b616b; --cap-dark: #33373d; --ink-key: #fff; }
+.calc-key-player { min-height: clamp(2.4rem, 10vw, 3rem); }
+.calc-key-player .calc-key-label { font-size: clamp(.8rem, 3.6vw, 1rem); }
+.calc-key-player.P1 { --cap: #e84a3c; --cap-dark: #962a20; }
+.calc-key-player.P2 { --cap: #3a86e8; --cap-dark: #1f5296; }
+.calc-key-player.P3 { --cap: #3fb35a; --cap-dark: #23703a; }
+.calc-key-player.P4 { --cap: #f2c230; --cap-dark: #9c7b14; }
+.calc-key-player.P5 { --cap: #b05ee0; --cap-dark: #6c3391; }
+.calc-key-player.P6 { --cap: #f08a24; --cap-dark: #9a5310; }
+
+.device-test .lcd { outline: 2px dashed #f2c230; outline-offset: 3px; }
+
+/* ───────── landscape: screen left, keys right ───────── */
+@media (orientation: landscape) and (max-height: 560px) {
+  .toolbar { position: fixed; top: env(safe-area-inset-top); right: env(safe-area-inset-right); flex-direction: column; flex-wrap: nowrap; z-index: 10; padding: .3rem; }
+  .tool-label { display: none; }
+  .device-wrap { padding: .4rem 3.4rem .4rem .5rem; }
+  .device {
+    width: min(100%, 52rem);
+    display: grid; grid-template-columns: 1.05fr 1fr; grid-template-rows: auto 1fr; column-gap: 1rem;
+    border-radius: 1.4rem; padding: .7rem .9rem;
+  }
+  .device-top { grid-column: 1; }
+  .device-screen-area { grid-column: 1; grid-row: 2; margin-bottom: 0; align-self: start; }
+  .keypad { grid-column: 2; grid-row: 1 / span 2; }
+  .calc-key { min-height: clamp(2.2rem, 11vh, 3rem); }
+  .calc-key-player { min-height: clamp(2rem, 9vh, 2.6rem); }
+  .seg-digit { width: clamp(.8rem, 2.2vw, 1.1rem); }
+  .lcd-big .seg-digit { width: clamp(1.2rem, 3.2vw, 1.6rem); }
+  .lcd-player .seg-digit { width: clamp(.85rem, 2.3vw, 1.15rem); }
+  .lcd-text, .lcd-ann { font-size: clamp(.5rem, 1.4vw, .75rem); }
+}
+
+/* short portrait phones (e.g. 360×640): tighten so everything fits without scrolling */
+@media (orientation: portrait) and (max-height: 700px) {
+  .toolbar { padding: .2rem .5rem; }
+  .device-wrap { padding-bottom: .4rem; }
+  .device { padding: .6rem; }
+  .device-top { margin-bottom: .35rem; }
+  .device-screen-area { margin-bottom: .6rem; padding: .4rem; }
+  .calc-key { min-height: 2.65rem; }
+  .calc-key-player { min-height: 2.2rem; }
+  .company-strip { margin-top: .3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calc-key-cap { transition: none; }
+  .seg-blink .seg-on, .lcd-error .lcd-text { animation: none; }
+}
