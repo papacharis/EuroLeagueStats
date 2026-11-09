@@ -144,7 +144,3 @@ The tests cover:
 * No game was live while this was built (the next ones tip off on 11 Nov 2026), so the live path is verified by replaying a recorded game rather than a real broadcast.
 * Team crests are hot-linked from EuroLeague's CDN and are hidden if they fail to load.
 * Play-by-play is unavailable before 2007-08, and those seasons show schedules only.
-
-## Monopoly Χρηματιστήριο calculator
-
-The `monopoly-calculator/` folder holds a separate web app, independent of the EuroLeague tracker. It is a digital replacement for the electronic unit of *Monopoly Stock Exchange* (2001). See [monopoly-calculator/README.md](monopoly-calculator/README.md).
